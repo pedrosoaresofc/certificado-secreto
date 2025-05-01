@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Certificado de Amor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #f8e1f4, #fef6fa);
+      text-align: center;
+      padding: 40px;
+      color: #4a4a4a;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      color: #c2185b;
+    }
+
+    input {
+      padding: 12px;
+      font-size: 18px;
+      border: 2px solid #c2185b;
+      border-radius: 8px;
+      width: 250px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #c2185b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #ad1457;
+    }
+
+    .certificado {
+      display: none;
+      background: white;
+      border: 4px double #c2185b;
+      padding: 30px;
+      margin-top: 30px;
+      width: 80%;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      font-size: 18px;
+    }
+
+    .certificado h2 {
+      font-size: 36px;
+      font-family: 'Great Vibes', cursive;
+      color: #c2185b;
+      margin-bottom: 20px;
+    }
+
+    .assinatura {
+      margin-top: 50px;
+      font-style: italic;
+      font-size: 16px;
+      color: #555;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li::before {
+      content: "❤️ ";
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Certificado de Amor</h1>
+  <p>Digite seu nome, minha linda:</p>
+  <input type="text" id="nomeNamorada" placeholder="Seu nome">
+  <br>
+  <button onclick="gerarCertificado()">Enviar</button>
+  <button onclick="baixarPDF()" id="btnPDF" style="display: none;">Baixar como PDF</button>
+
+  <div class="certificado" id="certificado">
+    <h2>Certificado de Amor</h2>
+    <p>Este certificado é concedido a <strong id="nomeExibido"></strong></p>
+    <p>Por ser a <strong>Melhor Namorada do Mundo</strong>.</p>
+    <p>Motivos:</p>
+    <ul style="text-align: left; display: inline-block;">
+      <li>Tem o sorriso mais lindo do universo</li>
+      <li>Me faz feliz todos os dias</li>
+      <li>É carinhosa, inteligente e maravilhosa</li>
+      <li>É o amor da minha vida</li>
+    </ul>
+    <div class="assinatura">
+      Assinado: Pedro Soares - Namorado
+    </div>
+  </div>
+
+  <script>
+    function gerarCertificado() {
+      const nome = document.getElementById('nomeNamorada').value.trim();
+      if (!nome) {
+        alert("Por favor, digite seu nome 😊");
+        return;
+      }
+      document.getElementById('nomeExibido').innerText = nome;
+      document.getElementById('certificado').style.display = 'block';
+      document.getElementById('btnPDF').style.display = 'inline-block';
+    }
+
+    function baixarPDF() {
+      const element = document.getElementById('certificado');
+      const opt = {
+        margin:       0.5,
+        filename:     'certificado-namorada.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
+  </script>
+
+</body>
+</html>
